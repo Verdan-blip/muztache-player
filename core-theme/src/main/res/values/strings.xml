@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="separator_between_artists"> &amp; </string>
+    <string name="small_cover_content_description">Small cover</string>
+
+</resources>
