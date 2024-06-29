@@ -51,6 +51,20 @@ android {
 
 dependencies {
 
+    implementation(project(":core-theme"))
+    implementation(project(":core-common"))
+
+    implementation(project(":navigation"))
+
+    implementation(project(":feature-feed"))
+    implementation(project(":feature-player"))
+
+    implementation(libs.bundles.voyager)
+
+    implementation(platform(libs.koin.bom))
+    implementation(libs.bundles.koin)
+
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

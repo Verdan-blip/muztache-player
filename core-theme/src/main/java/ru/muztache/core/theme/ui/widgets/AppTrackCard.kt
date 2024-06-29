@@ -8,9 +8,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -69,20 +71,22 @@ fun TrackCard(track: TrackCardModel) {
                     )
                 )
         ) {
-            LightText(
+            Text(
                 text = track.title,
+                color = Color.White,
                 modifier = Modifier.padding(
                     bottom = dimensionResource(
                         id = R.dimen.small_card_track_info_text_padding_bottom
                     )
                 )
             )
-            LightText(
+            Text(
                 text = track.artists.joinToString(
                     separator = stringResource(
                         id = R.string.separator_between_artists
                     )
-                )
+                ),
+                color = Color.White
             )
         }
     }
