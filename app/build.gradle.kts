@@ -1,6 +1,6 @@
 plugins {
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.jetbrainsKotlinAndroid)
+    id(libs.plugins.android.application.get().pluginId)
+    id(libs.plugins.jetbrains.kotlin.android.get().pluginId)
 }
 
 android {
@@ -30,17 +30,18 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        isCoreLibraryDesugaringEnabled = true
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = libs.versions.kotlinCompilerExtension.get()
     }
     packaging {
         resources {
@@ -53,11 +54,18 @@ dependencies {
 
     implementation(project(":core-theme"))
     implementation(project(":core-common"))
+    implementation(project(":core-util"))
 
     implementation(project(":navigation"))
 
     implementation(project(":feature-feed"))
     implementation(project(":feature-player"))
+    implementation(project(":feature-notch"))
+
+    implementation(project(":audio-player-api"))
+    implementation(project(":audio-player-impl"))
+
+    coreLibraryDesugaring(libs.android.desugaring.tools)
 
     implementation(libs.bundles.voyager)
 

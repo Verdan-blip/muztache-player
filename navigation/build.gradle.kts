@@ -1,45 +1,20 @@
+import ru.muztache.build.extensions.dependencies.useCompose
+import ru.muztache.build.extensions.dependencies.useKoin
+import ru.muztache.build.extensions.dependencies.useLifecycle
+import ru.muztache.build.extensions.dependencies.useVoyager
+import ru.muztache.build.extensions.useCommonConfiguration
+
 plugins {
-    alias(libs.plugins.androidLibrary)
-    alias(libs.plugins.jetbrainsKotlinAndroid)
+    id(libs.plugins.android.library.get().pluginId)
+    id(libs.plugins.jetbrains.kotlin.android.get().pluginId)
 }
 
-android {
-    namespace = "ru.muztache.navigation"
-    compileSdk = 34
+useCommonConfiguration(name = "navigation")
 
-    defaultConfig {
-        minSdk = 28
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-}
+useCompose()
+useLifecycle()
+useKoin()
+useVoyager()
 
 dependencies {
-
-    implementation(libs.bundles.voyager)
-
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
 }

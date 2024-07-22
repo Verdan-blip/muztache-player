@@ -2,7 +2,7 @@ package ru.muztache.feature.feed.presentation.view
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import ru.muztache.core.common.viewmodel.BaseViewModel
+import ru.muztache.core.common.base.viewmodel.BaseViewModel
 import ru.muztache.feature.feed.presentation.entity.TrackModel
 
 class FeedViewModel : BaseViewModel() {

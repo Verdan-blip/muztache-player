@@ -9,7 +9,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
-import ru.muztache.core.common.time.toMmSsString
 import ru.muztache.core.theme.ui.widgets.fontDimensionResource
 import ru.muztache.feature.player.R
 

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="media_session_notification_channel_id">mediaNotificationChannelId</string>
+    <string name="media_session_notification_channel_name">Статус проигрывателя</string>
+
+</resources>
