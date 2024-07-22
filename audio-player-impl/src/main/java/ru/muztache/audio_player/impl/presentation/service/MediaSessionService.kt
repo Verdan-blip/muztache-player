@@ -2,14 +2,11 @@ package ru.muztache.audio_player.impl.presentation.service
 
 import android.app.PendingIntent
 import android.content.Intent
-import android.graphics.Bitmap
 import android.media.AudioManager
 import android.media.MediaMetadata
 import android.media.session.MediaSession
 import android.media.session.PlaybackState
-import android.util.Log
 import kotlinx.coroutines.launch
-import ru.muztache.audio_player.api.domain.entity.AudioItem
 import ru.muztache.audio_player.api.domain.player.AudioPlayerEvent
 import ru.muztache.audio_player.impl.presentation.service.notification.AudioNotificationCommand
 import ru.muztache.audio_player.impl.presentation.service.notification.AudioNotificationService
@@ -18,7 +15,6 @@ import ru.muztache.audio_player.impl.presentation.service.tools.extensions.getAu
 import ru.muztache.audio_player.impl.presentation.service.tools.utils.AudioFocusUtils
 import ru.muztache.audio_player.impl.presentation.service.tools.utils.MediaSessionUtils
 import ru.muztache.core.common.contracts.ActivityStarter
-import ru.muztache.core.common.tools.util.BitmapUtils
 
 class MediaSessionService : AudioPlayerService() {
 

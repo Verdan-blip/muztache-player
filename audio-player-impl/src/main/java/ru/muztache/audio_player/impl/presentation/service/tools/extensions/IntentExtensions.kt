@@ -3,7 +3,6 @@ package ru.muztache.audio_player.impl.presentation.service.tools.extensions
 import android.content.Intent
 import android.os.Build
 import ru.muztache.audio_player.impl.presentation.service.notification.AudioNotificationCommand
-import ru.muztache.audio_player.impl.presentation.service.notification.AudioNotificationService
 
 const val KEY_AUDIO_NOTIFICATION_COMMAND = "audioNotificationCommand"
 

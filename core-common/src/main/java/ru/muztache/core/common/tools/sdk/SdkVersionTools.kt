@@ -1,7 +1,6 @@
 package ru.muztache.core.common.tools.sdk
 
 import android.os.Build
-import androidx.annotation.ChecksSdkIntAtLeast
 
 
 inline fun runOnApi33(block: () -> Unit) {

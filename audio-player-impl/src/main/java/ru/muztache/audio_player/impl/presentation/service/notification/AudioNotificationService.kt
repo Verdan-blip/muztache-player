@@ -8,7 +8,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Icon
 import android.media.session.MediaSession
-import android.media.session.PlaybackState
 import androidx.annotation.DrawableRes
 import ru.muztache.audio_player.impl.R
 import ru.muztache.audio_player.impl.presentation.service.receiver.AudioButtonReceiver

@@ -2,7 +2,6 @@ package ru.muztache.build.extensions
 
 import com.android.build.gradle.BaseExtension
 import com.android.build.gradle.LibraryExtension
-import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.api.artifacts.VersionCatalogsExtension
@@ -13,8 +12,8 @@ import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import ru.muztache.build.config.AndroidConfig
 import ru.muztache.build.config.BuildTypes
-import ru.muztache.build.tools.implementation
 import ru.muztache.build.tools.coreLibraryDesugaring
+import ru.muztache.build.tools.implementation
 
 class NotAndroidModuleException : Exception()
 

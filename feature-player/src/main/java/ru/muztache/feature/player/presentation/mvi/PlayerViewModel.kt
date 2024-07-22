@@ -3,8 +3,6 @@ package ru.muztache.feature.player.presentation.mvi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import ru.muztache.core.common.base.viewmodel.BaseViewModel
-import ru.muztache.feature.player.presentation.mvi.PlayerAction
-import ru.muztache.feature.player.presentation.mvi.UiState
 
 class PlayerViewModel : BaseViewModel() {
 
