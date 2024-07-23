@@ -8,6 +8,8 @@ data class AudioPlayerState(
     val isActive: Boolean = false,
     val isPaused: Boolean = true,
     val currentPlayingAudioItem: AudioItemInfo? = null,
+    val currentPlayingIndex: Int = -1,
     val currentProgress: Milliseconds = Milliseconds(value = 0),
+    val playingSpeed: Float = 1f,
     val remainingAudioItems: List<AudioItem> = listOf()
 )

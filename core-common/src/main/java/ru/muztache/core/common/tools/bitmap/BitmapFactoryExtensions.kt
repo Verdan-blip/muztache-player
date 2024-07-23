@@ -1,4 +1,4 @@
-package ru.muztache.core.common.tools.util
+package ru.muztache.core.common.tools.bitmap
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory

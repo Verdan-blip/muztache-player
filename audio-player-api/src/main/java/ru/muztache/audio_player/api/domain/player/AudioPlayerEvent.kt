@@ -17,9 +17,15 @@ sealed interface AudioPlayerEvent {
 
     data class AudioItemChanged(val audioItemInfo: AudioItemInfo) : AudioPlayerEvent
 
+    data class PlayingAudioItemIndexChanged(val newIndex: Int) : AudioPlayerEvent
+
     data class RemainingAudioItemsChanged(val audioItems: List<AudioItem>) : AudioPlayerEvent
 
-    data class PlayingProgressChanged(val newProgress: Milliseconds) : AudioPlayerEvent
+    data class EndOfQueueReached(val audioItem: AudioItem) : AudioPlayerEvent
+
+    data class BeginningOfQueueReached(val audioItem: AudioItem) : AudioPlayerEvent
+
+    data class PlayingPositionChanged(val newPosition: Milliseconds) : AudioPlayerEvent
 
     data class BufferingProgressChanged(val newProgress: Progress) : AudioPlayerEvent
 

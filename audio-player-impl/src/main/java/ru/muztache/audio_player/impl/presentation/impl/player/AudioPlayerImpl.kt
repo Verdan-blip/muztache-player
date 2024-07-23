@@ -30,24 +30,8 @@ class AudioPlayerImpl(
 
     private var mediaPlayer: MediaPlayer? = null
 
-    //Coroutine scopes
     private val mediaPlayerScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
 
-    //State
-    private var isActive: Boolean = false
-
-    private var isPaused: Boolean = false
-
-    private var currentProgress: Milliseconds = Milliseconds(value = 0L)
-
-    private var currentPlayingAudioItem: AudioItemInfo? = null
-
-    private val remainingAudioItems: MutableList<AudioItem> = mutableListOf()
-
-    private var currentPlayingIndex: Int = -1
-
-
-    //Flow
     private val _playerState = MutableStateFlow(AudioPlayerState())
     override val playerState: StateFlow<AudioPlayerState>
         get() = _playerState
@@ -55,6 +39,21 @@ class AudioPlayerImpl(
     private val _playerEvent = MutableSharedFlow<AudioPlayerEvent>()
     override val playerEvent: SharedFlow<AudioPlayerEvent>
         get() = _playerEvent
+
+
+    private var isActive: Boolean = _playerState.value.isActive
+
+    private var isPaused: Boolean = _playerState.value.isPaused
+
+    private var currentProgress: Milliseconds = _playerState.value.currentProgress
+
+    private var currentPlayingAudioItem: AudioItemInfo? = _playerState.value.currentPlayingAudioItem
+
+    private val remainingAudioItems: MutableList<AudioItem> = _playerState.value.remainingAudioItems.toMutableList()
+
+    private var currentPlayingIndex: Int = -1
+
+    private var playingSpeed: Float = _playerState.value.playingSpeed
 
     override suspend fun start() {
         mediaPlayer = MediaPlayer().apply {
@@ -98,9 +97,10 @@ class AudioPlayerImpl(
     override suspend fun seekTo(millis: Milliseconds) {
         mediaPlayer?.seekTo(millis.value, MediaPlayer.SEEK_CLOSEST)
 
+        isPaused = true
         currentProgress = millis
         _playerState.emit(getPlayerStateFromLatestChanges())
-        _playerEvent.emit(AudioPlayerEvent.PlayingProgressChanged(millis))
+        _playerEvent.emit(AudioPlayerEvent.Paused)
     }
 
     override suspend fun play(audioItem: AudioItem) {
@@ -191,7 +191,9 @@ class AudioPlayerImpl(
             }
             setOnSeekCompleteListener {
                 mediaPlayerScope.launch {
-                    _playerEvent.emit(AudioPlayerEvent.PlayingProgressChanged(currentPosition.toMilliseconds()))
+                    currentProgress = currentPosition.toMilliseconds()
+                    _playerEvent.emit(AudioPlayerEvent.PlayingPositionChanged(currentPosition.toMilliseconds()))
+                    _playerState.emit(getPlayerStateFromLatestChanges())
                 }
             }
             mediaPlayerScope.launch { collectPlayingPositionUpdates() }
@@ -203,8 +205,15 @@ class AudioPlayerImpl(
             mediaPlayer?.apply {
                 if (isPlaying) {
                     currentProgress = currentPosition.toMilliseconds()
+                    isPaused = !isPlaying
+
                     _playerState.emit(getPlayerStateFromLatestChanges())
-                    _playerEvent.emit(AudioPlayerEvent.PlayingProgressChanged(currentProgress))
+
+                    _playerEvent.emit(AudioPlayerEvent.PlayingPositionChanged(currentProgress))
+                    if (!isPaused)
+                        _playerEvent.emit(AudioPlayerEvent.Resumed)
+                    else
+                        _playerEvent.emit(AudioPlayerEvent.Paused)
                 }
             }
             delay(timeMillis = PLAYING_PROGRESS_UPDATING_PERIOD.value)
@@ -217,11 +226,12 @@ class AudioPlayerImpl(
             isPaused = isPaused,
             currentPlayingAudioItem = currentPlayingAudioItem,
             currentProgress = currentProgress,
+            currentPlayingIndex = currentPlayingIndex,
             remainingAudioItems = remainingAudioItems
         )
 
     companion object {
 
-        val PLAYING_PROGRESS_UPDATING_PERIOD = Milliseconds(value = 1_000)
+        private val PLAYING_PROGRESS_UPDATING_PERIOD = Milliseconds(value = 500)
     }
 }

@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import ru.muztache.audio_player.api.domain.entity.AudioItem
 import ru.muztache.audio_player.api.domain.player.AudioPlayer
 import ru.muztache.audio_player.api.domain.player.AudioPlayerEvent
@@ -18,10 +19,9 @@ import ru.muztache.core.util.time.Milliseconds
 
 abstract class AudioPlayerService : BaseService(), AudioPlayer {
 
-    protected var audioPlayer: AudioPlayer? = null
+    private var audioPlayer: AudioPlayer? = null
 
     private var binder: AudioPlayerServiceBinder? = null
-
 
     private val _playerState = MutableStateFlow(AudioPlayerState())
     override val playerState: StateFlow<AudioPlayerState>
@@ -39,15 +39,16 @@ abstract class AudioPlayerService : BaseService(), AudioPlayer {
                 launch { collectPlayerEvent(player) }
             }
         }
-
-        binder = AudioPlayerServiceBinder(playerService = this)
+        binder = AudioPlayerServiceBinder(service = this)
     }
 
     override fun onBind(intent: Intent?): IBinder? = binder
 
     override fun onDestroy() {
         super.onDestroy()
-        serviceScope.launch { audioPlayer?.stop() }
+        runBlocking { audioPlayer?.stop() }
+        audioPlayer = null
+        binder = null
     }
 
     override suspend fun start() {
