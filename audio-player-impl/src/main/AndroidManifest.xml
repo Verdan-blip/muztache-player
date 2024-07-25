@@ -9,15 +9,24 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application>
+
+        <receiver android:name="androidx.media3.session.MediaButtonReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_BUTTON" />
+            </intent-filter>
+        </receiver>
+
         <service
-            android:name=".presentation.service.MediaSessionPlayerService"
+            android:name=".presentation.service.AudioPlayerService"
             android:foregroundServiceType="mediaPlayback"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
-                <action android:name="android.android.intent.action.MEDIA_BUTTON" />
+                <action android:name="androidx.media3.session.MediaSessionService" />
             </intent-filter>
         </service>
+
     </application>
 
 </manifest>

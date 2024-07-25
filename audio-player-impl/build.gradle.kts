@@ -23,4 +23,5 @@ dependencies {
     implementation(project(":audio-player-api"))
 
     implementation(libs.coil)
+    implementation(libs.bundles.media3)
 }

@@ -25,6 +25,6 @@ fun Milliseconds.toMmSsString(separator: String = ":"): String {
     return "%.2d$separator%.2d".format(minutes, seconds)
 }
 
-fun Long.toMilliseconds(): Milliseconds = Milliseconds(value = this)
+fun Long.toMilliseconds(safe: Boolean = false): Milliseconds = Milliseconds(value = this)
 
 fun Int.toMilliseconds(): Milliseconds = Milliseconds(value = toLong())

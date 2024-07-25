@@ -5,7 +5,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import ru.muztache.audio_player.api.domain.player.controller.AudioPlayerController
+import ru.muztache.audio_player.api.domain.controller.AudioPlayerController
 import ru.muztache.core.common.base.entity.BaseAudioItemModel
 import ru.muztache.core.common.base.entity.state.BaseAudioPlayerState
 import ru.muztache.core.common.base.viewmodel.AudioViewModel
@@ -27,26 +27,20 @@ class MainActivityViewModel(
         }
     }
 
-    fun start() {
-        viewModelScope.launch(Dispatchers.IO) {
-            audioPlayerController.start()
-        }
-    }
-
-    override fun resume() {
-        viewModelScope.launch(Dispatchers.IO) {
-            audioPlayerController.resume()
+    override fun play() {
+        viewModelScope.launch {
+            audioPlayerController.play()
         }
     }
 
     override fun play(audioItem: BaseAudioItemModel) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             audioPlayerController.play(audioItem.toAudioItem())
         }
     }
 
     override fun play(audioItems: List<BaseAudioItemModel>) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             audioPlayerController.play(audioItems.map { baseAudioItemModel ->
                 baseAudioItemModel.toAudioItem()
             })
@@ -54,19 +48,19 @@ class MainActivityViewModel(
     }
 
     override fun skipToNext() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             audioPlayerController.skipToNext()
         }
     }
 
     override fun playNext(audioItem: BaseAudioItemModel) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             audioPlayerController.playNext(audioItem.toAudioItem())
         }
     }
 
     override fun playNext(audioItems: List<BaseAudioItemModel>) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             audioPlayerController.playNext(audioItems.map { baseAudioItemModel ->
                 baseAudioItemModel.toAudioItem()
             })
@@ -74,19 +68,19 @@ class MainActivityViewModel(
     }
 
     override fun skipToPrevious() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             audioPlayerController.skipToPrevious()
         }
     }
 
     override fun pause() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             audioPlayerController.pause()
         }
     }
 
     override fun seekTo(millis: Milliseconds) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             audioPlayerController.seekTo(millis)
         }
     }

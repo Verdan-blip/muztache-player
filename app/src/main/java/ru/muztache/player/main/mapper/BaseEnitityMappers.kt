@@ -2,16 +2,18 @@ package ru.muztache.player.main.mapper
 
 import ru.muztache.audio_player.api.domain.entity.AudioItem
 import ru.muztache.audio_player.api.domain.entity.AudioItemInfo
-import ru.muztache.audio_player.api.domain.player.AudioPlayerState
+import ru.muztache.audio_player.api.domain.controller.AudioPlayerState
+import ru.muztache.audio_player.api.domain.controller.PlayingState
 import ru.muztache.core.common.base.entity.BaseAudioItemInfoModel
 import ru.muztache.core.common.base.entity.BaseAudioItemModel
+import ru.muztache.core.common.base.entity.BasePlayingState
 import ru.muztache.core.common.base.entity.state.BaseAudioPlayerState
 
 fun BaseAudioItemModel.toAudioItem(): AudioItem = 
     AudioItem(
         id = id, 
         title = title, 
-        authors = authors, 
+        artists = authors,
         audioUri = audioUri, 
         coverUri = coverUri
     )
@@ -38,7 +40,15 @@ fun BaseAudioItemInfoModel.toAudioItemInfo(): AudioItemInfo =
 
 fun AudioPlayerState.toBaseAudioPlayerState(): BaseAudioPlayerState =
     BaseAudioPlayerState(
-        isPaused = isPaused,
+        state = state.toBasePlayingState(),
         currentBaseAudioItem = currentPlayingAudioItem?.toBaseAudioItemModelInfo(),
         currentProgress = currentProgress
     )
+
+fun PlayingState.toBasePlayingState(): BasePlayingState {
+    return when (this) {
+        PlayingState.Playing -> BasePlayingState.RESUMED
+        PlayingState.BUFFERING -> BasePlayingState.BUFFERING
+        PlayingState.PAUSED -> BasePlayingState.PAUSED
+    }
+}

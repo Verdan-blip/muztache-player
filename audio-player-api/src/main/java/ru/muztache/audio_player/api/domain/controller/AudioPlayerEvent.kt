@@ -1,4 +1,4 @@
-package ru.muztache.audio_player.api.domain.player
+package ru.muztache.audio_player.api.domain.controller
 
 import ru.muztache.audio_player.api.domain.entity.AudioItem
 import ru.muztache.audio_player.api.domain.entity.AudioItemInfo
@@ -13,6 +13,8 @@ sealed interface AudioPlayerEvent {
 
     data object Stopped : AudioPlayerEvent
 
+    data class PlayingStateChanged(val state: PlayingState) : AudioPlayerEvent
+
     data class PlaybackError(val throwable: Throwable) : AudioPlayerEvent
 
     data class AudioItemChanged(val audioItemInfo: AudioItemInfo) : AudioPlayerEvent
@@ -21,15 +23,7 @@ sealed interface AudioPlayerEvent {
 
     data class RemainingAudioItemsChanged(val audioItems: List<AudioItem>) : AudioPlayerEvent
 
-    data class EndOfQueueReached(val audioItem: AudioItem) : AudioPlayerEvent
-
-    data class BeginningOfQueueReached(val audioItem: AudioItem) : AudioPlayerEvent
-
     data class PlayingPositionChanged(val newPosition: Milliseconds) : AudioPlayerEvent
 
-    data class BufferingProgressChanged(val newProgress: Progress) : AudioPlayerEvent
-
-    data object Paused : AudioPlayerEvent
-
-    data object Resumed : AudioPlayerEvent
+    data class BufferingPositionChanged(val newProgress: Progress) : AudioPlayerEvent
 }

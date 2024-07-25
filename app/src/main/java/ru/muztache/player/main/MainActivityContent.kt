@@ -43,13 +43,7 @@ fun MainActivityContent(
         Column(modifier = Modifier.align(Alignment.Center)) {
             ControlButton(
                 onClick = {
-                    viewModel.start()
-                },
-                text = "Start service"
-            )
-            ControlButton(
-                onClick = {
-                    viewModel.resume()
+                    viewModel.play()
                 },
                 text = "Play"
             )

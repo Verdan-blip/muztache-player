@@ -10,7 +10,7 @@ abstract class AudioViewModel : BaseViewModel() {
     abstract val playerState: StateFlow<BaseAudioPlayerState>
 
 
-    abstract fun resume()
+    abstract fun play()
 
     abstract fun play(audioItem: BaseAudioItemModel)
 

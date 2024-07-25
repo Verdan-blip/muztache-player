@@ -7,6 +7,7 @@ import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import ru.muztache.audio_player.impl.di.audioPlayerModule
 import ru.muztache.core.common.contracts.ActivityStarter
+import ru.muztache.player.di.appModule
 import ru.muztache.player.main.MainActivity
 import ru.muztache.player.main.di.mainModule
 
@@ -18,6 +19,9 @@ class App : Application(), ActivityStarter {
         startKoin {
             androidLogger()
             androidContext(this@App)
+
+            //App
+            modules(appModule)
 
             //Main
             modules(mainModule)
