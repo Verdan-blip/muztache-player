@@ -6,10 +6,9 @@ import androidx.media3.common.MediaMetadata
 import androidx.media3.common.Player
 import ru.muztache.audio_player.api.domain.entity.AudioItem
 import ru.muztache.audio_player.api.domain.entity.AudioItemInfo
-import ru.muztache.core.theme.R
 import ru.muztache.core.common.contracts.ResourceManager
+import ru.muztache.core.theme.R
 import ru.muztache.core.util.time.Milliseconds
-import ru.muztache.core.util.time.toMilliseconds
 
 class MediaItemMappingException(message: String) : Exception(message)
 

@@ -1,4 +1,3 @@
-import ru.muztache.build.extensions.dependencies.project.useCoreModule
 import ru.muztache.build.extensions.dependencies.project.useNavigationModule
 import ru.muztache.build.extensions.dependencies.useCompose
 import ru.muztache.build.extensions.dependencies.useKoin
@@ -18,9 +17,12 @@ useLifecycle()
 useKoin()
 useVoyager()
 
-useCoreModule()
 useNavigationModule()
 
 dependencies {
+    implementation(project(":core-common"))
+    implementation(project(":core-theme"))
+    implementation(project(":core-util"))
 
+    implementation(libs.coil)
 }

@@ -1,4 +1,4 @@
-package ru.muztache.core.theme.ui.notification
+package ru.muztache.core.common.notification
 
 import android.app.Notification
 

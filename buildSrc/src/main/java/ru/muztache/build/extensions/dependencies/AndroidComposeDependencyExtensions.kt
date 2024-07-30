@@ -24,12 +24,19 @@ fun Project.useComposeBase() {
         }
     }
     dependencies {
-        implementation(platform(libs.findLibrary("androidx-compose-bom").get()))
+        val composeBom = platform(libs.findLibrary("androidx-compose-bom").get())
+        implementation(composeBom)
+        androidTestImplementation(composeBom)
 
         implementation(libs.findLibrary("androidx-activity-compose").get())
+
+        //UI-kit
         implementation(libs.findLibrary("androidx-material3").get())
+
+        //Android Studio Preview Support
         implementation(libs.findLibrary("androidx-ui-tooling-preview").get())
         debugImplementation(libs.findLibrary("androidx-ui-tooling").get())
+
     }
 }
 

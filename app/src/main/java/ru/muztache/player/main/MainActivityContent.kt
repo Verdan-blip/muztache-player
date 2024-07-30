@@ -1,15 +1,12 @@
 package ru.muztache.player.main
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import cafe.adriel.voyager.navigator.Navigator
 import ru.muztache.core.common.base.entity.BaseAudioItemModel
+import ru.muztache.feature.player.presentation.ui.PlayerScreen
 
 val items = listOf(
     BaseAudioItemModel(
@@ -39,61 +36,13 @@ val items = listOf(
 fun MainActivityContent(
     viewModel: MainActivityViewModel
 ) {
-    Box(modifier = Modifier.fillMaxSize()) {
-        Column(modifier = Modifier.align(Alignment.Center)) {
-            ControlButton(
-                onClick = {
-                    viewModel.play()
-                },
-                text = "Play"
-            )
-            ControlButton(
-                onClick = {
-                    viewModel.pause()
-                },
-                text = "Pause"
-            )
-            ControlButton(
-                onClick = {
-                    viewModel.skipToNext()
-                },
-                text = "Skip to next"
-            )
-            ControlButton(
-                onClick = {
-                    viewModel.skipToPrevious()
-                },
-                text = "Seek to previous"
-            )
-            ControlButton(
-                onClick = {
-                    viewModel.play(items)
-                },
-                text = "Play items"
-            )
-            ControlButton(
-                onClick = {
-                    viewModel.play(items.first())
-                },
-                text = "Play item"
-            )
-        }
-    }
+    Navigator(screen = PlayerScreen())
 }
 
 @Preview(showSystemUi = true)
 @Composable
 private fun MainActivityContentPreview() {
-    Box(modifier = Modifier.fillMaxSize()) {
-        Column(modifier = Modifier.align(Alignment.Center)) {
-            ControlButton(onClick = { }, text = "Start service")
-            ControlButton(onClick = { }, text = "Play")
-            ControlButton(onClick = { }, text = "Pause")
-            ControlButton(onClick = { }, text = "Seek to next")
-            ControlButton(onClick = { }, text = "Seek to previous")
-            ControlButton(onClick = { }, text = "Play items")
-        }
-    }
+    Navigator(screen = PlayerScreen())
 }
 
 @Composable

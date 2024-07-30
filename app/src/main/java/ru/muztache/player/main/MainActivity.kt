@@ -4,18 +4,16 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import ru.muztache.player.ui.theme.MuztacheplayerTheme
+import ru.muztache.player.ui.theme.MuztachePlayerTheme
 
 class MainActivity : ComponentActivity() {
-
-    private val viewModel: MainActivityViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent {
-            MuztacheplayerTheme {
-                //Navigator(PlayerScreen())
+            MuztachePlayerTheme {
+                val viewModel: MainActivityViewModel by viewModel()
                 MainActivityContent(viewModel = viewModel)
             }
         }

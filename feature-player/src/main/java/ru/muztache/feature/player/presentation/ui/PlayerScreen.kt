@@ -14,6 +14,5 @@ class PlayerScreen : Screen {
     @Composable
     override fun Content() {
         val viewModel = viewModel<PlayerViewModel>()
-        PlayerComposeScreen(viewModel = viewModel)
     }
 }

@@ -1,33 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="cover_size">256dp</dimen>
-    <dimen name="cover_padding_top">92dp</dimen>
-    <dimen name="cover_corner_radius">20dp</dimen>
 
-    <dimen name="title_text_padding_top">32dp</dimen>
-    <dimen name="title_text_size">32sp</dimen>
-    <dimen name="artists_text_padding_top">18dp</dimen>
-    <dimen name="artists_text_size">20sp</dimen>
-
-    <dimen name="playing_progress_slider_padding_top">42dp</dimen>
-    <dimen name="playing_progress_slider_width">272dp</dimen>
-
-    <dimen name="progress_and_duration_text_padding_top">18dp</dimen>
-    <dimen name="progress_and_duration_text_size">14sp</dimen>
-
-    <dimen name="control_panel_padding_top">32dp</dimen>
-
-    <dimen name="next_button_padding_start">32dp</dimen>
-    <dimen name="next_button_width">32dp</dimen>
-    <dimen name="next_button_height">24dp</dimen>
-
-    <dimen name="previous_button_padding_end">32dp</dimen>
-    <dimen name="previous_button_width">32dp</dimen>
-    <dimen name="previous_button_height">24dp</dimen>
-
-    <dimen name="play_pause_button_size">64dp</dimen>
-
-    <dimen name="background_image_blur_radius">50dp</dimen>
 
 </resources>
