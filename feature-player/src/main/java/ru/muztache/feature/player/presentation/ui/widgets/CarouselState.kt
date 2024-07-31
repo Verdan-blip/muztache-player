@@ -1,6 +1,7 @@
 package ru.muztache.feature.player.presentation.ui.widgets
 
 import androidx.compose.animation.core.Animatable
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.IntState
 import androidx.compose.runtime.State
@@ -8,17 +9,21 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 
+typealias OnItemReselectListener = (index: Int) -> Unit
+
 interface CarouselState {
 
-    val xOffsetState: IntState
+    val xOffset: IntState
 
-    val currentItemInfoState: State<ItemInfo>
+    val currentItemInfo: State<ItemInfo>
 
     fun onDrag(xOffset: Int)
 
-    fun onCurrentItemInfoChange(newItemInfo: ItemInfo)
+    fun changeSelectedItem(itemInfo: ItemInfo)
 
     suspend fun flingToCurrentItemPosition()
+
+    fun setOnItemReselectListener(listener: OnItemReselectListener)
 
     data class ItemInfo(
         val index: Int,
@@ -30,19 +35,29 @@ interface CarouselState {
 class CarouselStateImpl : CarouselState {
 
     private val _xOffsetState = mutableIntStateOf(0)
-    override val xOffsetState: IntState
+    override val xOffset: IntState
         get() = _xOffsetState
 
     private val _currentItemInfoState = mutableStateOf(CarouselState.ItemInfo(0, 0, 1))
-    override val currentItemInfoState: State<CarouselState.ItemInfo>
+    override val currentItemInfo: State<CarouselState.ItemInfo>
         get() = _currentItemInfoState
+
+    private var onItemReselectListener: OnItemReselectListener = { }
 
     override fun onDrag(xOffset: Int) {
         _xOffsetState.intValue -= xOffset
     }
 
-    override fun onCurrentItemInfoChange(newItemInfo: CarouselState.ItemInfo) {
-        _currentItemInfoState.value = newItemInfo
+    override fun changeSelectedItem(itemInfo: CarouselState.ItemInfo, ) {
+        LazyListState
+        if (_currentItemInfoState.value != itemInfo) {
+            _currentItemInfoState.value = itemInfo
+            onItemReselectListener(itemInfo.index)
+        }
+    }
+
+    override fun setOnItemReselectListener(listener: OnItemReselectListener) {
+        onItemReselectListener = listener
     }
 
     override suspend fun flingToCurrentItemPosition() {
@@ -62,12 +77,12 @@ fun CarouselState.calculateDraggingOffset(
     overShootFraction: Float,
     itemSpacing: Int
 ): Float {
-    val offset = xOffsetState.intValue
-    val position = currentItemInfoState.value.position
-    val width = currentItemInfoState.value.width
+    val offset = xOffset.intValue
+    val position = currentItemInfo.value.position
+    val width = currentItemInfo.value.width
     return (offset - position).toFloat() / ((width + itemSpacing) * overShootFraction)
 }
 
 fun CarouselState.calculateIndexOffset(index: Int): Int {
-    return index - currentItemInfoState.value.index
+    return index - currentItemInfo.value.index
 }

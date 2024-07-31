@@ -4,11 +4,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -16,13 +14,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.Layout
-import androidx.compose.ui.layout.Placeable
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
-import ru.muztache.core.util.extensions.between
 import kotlin.math.absoluteValue
 import kotlin.math.pow
 
@@ -30,13 +26,20 @@ import kotlin.math.pow
 fun Carousel(
     modifier: Modifier = Modifier,
     itemsCount: Int,
+    onItemSelected: (index: Int) -> Unit = { },
     overshootFraction: Float = 0.5f,
     itemSpacing: Dp = 0.dp,
-    state: CarouselState,
+    state: CarouselState = rememberCarouselState(),
     itemContent: @Composable (index: Int) -> Unit
 ) {
 
     val coroutineScope = rememberCoroutineScope()
+
+    val measurePolicy = rememberCarouselMeasurePolicy(
+        state = state,
+        itemSpacing = itemSpacing,
+        overshootFraction = overshootFraction
+    )
 
     Layout(
         content = {
@@ -49,7 +52,7 @@ fun Carousel(
                 itemContent(index)
             }
         },
-        modifier = modifier
+        modifier = Modifier
             .pointerInput(Unit) {
                 detectDragGestures(
                     onDrag = { change, dragAmount ->
@@ -63,46 +66,12 @@ fun Carousel(
                     }
                 )
             }
-    ) { measurables, constraints ->
+            .then(modifier),
+        measurePolicy = measurePolicy
+    )
 
-        val placeables = measurables.map { measurable ->
-            measurable.measure(constraints)
-        }
-
-        val firstPlaceableSemiWidth = placeables.first().width / 2
-        val centerOffset = constraints.maxWidth / 2
-        val dragOffsetValue = state.xOffsetState.intValue
-
-        layout(constraints.maxWidth, constraints.maxHeight) {
-
-            var currentItemPositionLocal = centerOffset - firstPlaceableSemiWidth
-            var currentItemPosition = centerOffset - dragOffsetValue - firstPlaceableSemiWidth
-
-            placeables.forEachIndexed { index, placeable ->
-                placeable.placeRelative(x = currentItemPosition, y = 0)
-
-                //Fling behavior
-                if (isCandidateToBeCurrentItem(
-                        currentItemPosition,
-                        placeable,
-                        itemSpacing.roundToPx(),
-                        centerOffset,
-                        overshootFraction
-                    )
-                ) {
-                    state.onCurrentItemInfoChange(
-                        CarouselState.ItemInfo(
-                            index = index,
-                            position = currentItemPositionLocal - centerOffset + firstPlaceableSemiWidth,
-                            width = placeable.width
-                        )
-                    )
-                }
-
-                currentItemPosition += placeable.width + itemSpacing.roundToPx()
-                currentItemPositionLocal += placeable.width + itemSpacing.roundToPx()
-            }
-        }
+    LaunchedEffect(Unit) {
+        state.setOnItemReselectListener(listener = onItemSelected)
     }
 }
 
@@ -114,7 +83,6 @@ fun CarouselContent(
     state: CarouselState,
     itemContent: @Composable (index: Int) -> Unit
 ) {
-
     val itemReductionFactor = remember { 0.75f }
 
     repeat(itemsCount) { index ->
@@ -137,19 +105,6 @@ fun CarouselContent(
             itemContent(index)
         }
     }
-}
-
-private fun isCandidateToBeCurrentItem(
-    xPosition: Int,
-    suspect: Placeable,
-    itemSpacing: Int,
-    centerOffset: Int,
-    overshootFraction: Float
-): Boolean {
-    return (xPosition + suspect.width / 2).between(
-        left = -(suspect.width + itemSpacing) * overshootFraction + centerOffset,
-        right = (suspect.width + itemSpacing) * overshootFraction + centerOffset
-    )
 }
 
 @Preview(showSystemUi = true)

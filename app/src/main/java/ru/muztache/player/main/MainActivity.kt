@@ -4,7 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import ru.muztache.player.ui.theme.MuztachePlayerTheme
+import ru.muztache.core.theme.ui.theme.MuztacheTheme
+import ru.muztache.player.main.mvi.MainActivityViewModel
 
 class MainActivity : ComponentActivity() {
 
@@ -12,7 +13,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            MuztachePlayerTheme {
+            MuztacheTheme {
                 val viewModel: MainActivityViewModel by viewModel()
                 MainActivityContent(viewModel = viewModel)
             }

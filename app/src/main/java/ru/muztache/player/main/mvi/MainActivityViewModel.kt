@@ -1,4 +1,4 @@
-package ru.muztache.player.main
+package ru.muztache.player.main.mvi
 
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers

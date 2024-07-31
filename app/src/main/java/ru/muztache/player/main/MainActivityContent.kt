@@ -1,12 +1,11 @@
 package ru.muztache.player.main
 
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import cafe.adriel.voyager.navigator.Navigator
 import ru.muztache.core.common.base.entity.BaseAudioItemModel
 import ru.muztache.feature.player.presentation.ui.PlayerScreen
+import ru.muztache.player.main.mvi.MainActivityViewModel
 
 val items = listOf(
     BaseAudioItemModel(
@@ -33,9 +32,7 @@ val items = listOf(
 )
 
 @Composable
-fun MainActivityContent(
-    viewModel: MainActivityViewModel
-) {
+fun MainActivityContent(viewModel: MainActivityViewModel) {
     Navigator(screen = PlayerScreen())
 }
 
@@ -43,16 +40,4 @@ fun MainActivityContent(
 @Composable
 private fun MainActivityContentPreview() {
     Navigator(screen = PlayerScreen())
-}
-
-@Composable
-fun ControlButton(
-    onClick: () -> Unit,
-    text: String
-) {
-    Button(
-        onClick = onClick
-    ) {
-        Text(text = text)
-    }
 }

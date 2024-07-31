@@ -1,15 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="small_card_corner_radius">8dp</dimen>
-    <dimen name="small_card_padding">6dp</dimen>
+    <!-- Paddings -->
+    <dimen name="padding_small_2">2dp</dimen>
+    <dimen name="padding_small_4">4dp</dimen>
+    <dimen name="padding_small_8">8dp</dimen>
+    <dimen name="padding_small_10">8dp</dimen>
 
-    <dimen name="space_between_small_cards">2dp</dimen>
+    <dimen name="padding_normal_12">12dp</dimen>
+    <dimen name="padding_normal_16">16dp</dimen>
+    <dimen name="padding_normal_20">20dp</dimen>
+    <dimen name="padding_normal_24">24dp</dimen>
 
-    <dimen name="small_card_track_info_padding_left">8dp</dimen>
-    <dimen name="small_card_track_info_text_padding_bottom">2dp</dimen>
+    <dimen name="padding_large_32">32dp</dimen>
+    <dimen name="padding_large_48">48dp</dimen>
+    <dimen name="padding_large_56">56dp</dimen>
+    <dimen name="padding_large_64">64dp</dimen>
 
-    <dimen name="small_cover_size">44dp</dimen>
-    <dimen name="small_cover_corner_radius">8dp</dimen>
+    <!-- Size -->
+    <dimen name="size_small">32dp</dimen>
+    <dimen name="size_normal">56dp</dimen>
+    <dimen name="size_medium">64dp</dimen>
+    <dimen name="size_large">128dp</dimen>
+    <dimen name="size_extra_large">196dp</dimen>
+
+    <!-- Radius -->
+    <dimen name="radius_small_8">8dp</dimen>
+    <dimen name="radius_normal_12">12dp</dimen>
+    <dimen name="radius_large_20">20dp</dimen>
+    <dimen name="radius_extra_large_32">32dp</dimen>
 
 </resources>
